@@ -38,8 +38,7 @@ const DropZoneComponent = ({ draftId }) => {
     const removeFile = async (imageId) => {
         try {
             await deleteDraftImages(imageId);
-            const updatedFiles = files.filter((file) => file.id !== imageId);
-            setFiles(updatedFiles);
+            setFiles(prevFiles => prevFiles.filter((file) => file.id !== imageId))
         } catch (error) {
             console.log(error);
         }
@@ -47,17 +46,15 @@ const DropZoneComponent = ({ draftId }) => {
     };
 
 
-    const uploadFiles = async (acceptedFiles,draftId) => {
+    const uploadFiles = async (acceptedFiles, draftId) => {
         try {
             const formData = new FormData();
             acceptedFiles.forEach((file) => {
                 formData.append('photos', file)
             });
-
+            console.log(formData, "==> log formData dropzone");
             const upload = await updateDraftImages(draftId, formData);
-            console.log(draftId, "===> draftId in dropzone component");
-            console.log(upload, "==> upload function in dropzone");
-
+            console.log(upload, "===> log upload on dropzone");
             const fetchRecent = await fetchDraftImagesById(draftId);
             setFiles(fetchRecent);
         } catch (error) {
@@ -82,8 +79,8 @@ const DropZoneComponent = ({ draftId }) => {
                 </div>
                 {files && files.length > 0 && (
                     <ul>
-                        {files.map((file) => (
-                            <li key={file.id} className="flex justify-between items-center">
+                        {files.map((file, index) => (
+                            <li key={index} className="flex justify-between items-center">
                                 <span>{file.image_url ? extractNameFromUrl(file.image_url) : ''}</span>
                                 <a onClick={() => removeFile(file.id)}>X</a>
                             </li>

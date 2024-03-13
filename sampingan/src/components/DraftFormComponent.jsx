@@ -45,6 +45,7 @@ const DraftFormComponent = ({ passedData }) => {
 
     const handlePost = async () => {
         try {
+            await handleSave();
             await postSelectedArticle(draftData.id);
             setFetchTrigger(prev => !prev);
             toast.success('Your Draft has been Posted');
@@ -79,11 +80,12 @@ const DraftFormComponent = ({ passedData }) => {
             ...formData,
             [name]: value
         });
-        console.log(formData);
+        console.log(formData.id_category);
     };
 
     return (
         <>
+            {console.log(categories, "====> cek kategori")}
             <h2 className="font-sans font-bold break-normal text-gray-700 px-2 pb-8 text-xl">Draft 1</h2>
             <div id='section1' className="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
                 <form className="relative">
@@ -112,19 +114,23 @@ const DraftFormComponent = ({ passedData }) => {
                             </label>
                         </div>
                         <div className="md:w-2/3">
-                            <select
-                                name="id_category"
-                                className="form-select border border-gray-400 rounded block w-full focus:bg-white"
-                                style={{ width: '90%', padding: 5 }}
-                                onChange={handleInputChange}
-                                value={formData.id_category}
-                            >
-                                {
-                                    categories.map((item) => (
-                                        <option key={item.id} value={item.id}>{item.categories_name}</option>
-                                    ))
-                                }
-                            </select>
+                            {
+                                categories.length > 0 && (
+                                    <select
+                                        name="id_category"
+                                        className="form-select border border-gray-400 rounded block w-full focus:bg-white"
+                                        style={{ width: '90%', padding: 5 }}
+                                        onChange={handleInputChange}
+                                        value={formData.id_category}
+                                    >
+                                        {
+                                            categories.map((item) => (
+                                                <option key={item.id} value={item.id}>{item.categories_name}</option>
+                                            ))
+                                        }
+                                    </select>
+                                )
+                            }
                         </div>
                     </div>
 

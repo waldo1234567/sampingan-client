@@ -18,6 +18,7 @@ export const LayoutProvider = ({ children }) => {
     const [isGarbageBinOpen,setIsGarbageBinOpen] = useState(false);
     const [isHistoryOpen,setIsHistoryOpen] = useState(false);
     const [draftsStatus,setDraftsStatus] = useState([]);
+    const [latestArticle,setLatestArticle] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -69,6 +70,8 @@ export const LayoutProvider = ({ children }) => {
         setIsHistoryOpen,
         draftsStatus,
         setDraftsStatus,
+        latestArticle,
+        setLatestArticle,
         
     }
 

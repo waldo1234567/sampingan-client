@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const navigation = [
-        { name: 'Latest', href: '#' },
+        { name: 'Latest', href: '/latest' },
         { name: 'Browse', href: '/article/all-article' },
         { name: 'Featured', href: '/home' },
         { name: 'Sign up', href: '/home' },

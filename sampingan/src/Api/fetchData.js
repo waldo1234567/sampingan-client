@@ -181,3 +181,13 @@ export const getAllStatus = async () => {
         console.log(error, "===> error fetching status");
     }
 }
+
+export const latestArticles = async () => {
+    try {
+        const response = await axios.get(`http://localhost:3000/article/sort-by-date`);
+        console.log(response);
+        return response.data.data;
+    } catch (error) {
+        
+    }
+}
